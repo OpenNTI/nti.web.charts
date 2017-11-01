@@ -1,0 +1,54 @@
+@import "~nti-style-common/all.scss";
+
+.numeric-value {
+	background-color: $primary-blue;
+	color: #FFFFFF;
+	padding: 20px;
+	padding-bottom: 30px;
+	position: relative;
+
+	.label {
+		text-transform: uppercase;
+		opacity: 0.8;
+		font-size: 12px;
+		font-weight: 300;
+		line-height: 17px;
+		padding-bottom: 10px;
+		padding-top: 4px;
+	}
+	.value {
+		font-size: 72px;
+		line-height: 72px;
+		font-weight: 300;
+		color: white;
+		padding-bottom: 50px;
+	}
+	.change {
+		display: none;
+		font-size: 26px;
+		font-weight: 600;
+		letter-spacing: 1px;
+		line-height: 36px;
+		padding-top: 10px;
+		position: absolute;
+    	padding-bottom: 30px;
+    	bottom: 0px;
+		&.positive {
+			display: block;
+			&::before {
+				content: "➜ ";
+				display: inline-block;
+				transform: rotate(270deg);
+			}
+		}
+
+		&.negative {
+			display: block;
+			&::before {
+				content: "➜ ";
+				display: inline-block;
+				transform: rotate(90deg);
+			}
+		}
+	}
+}
