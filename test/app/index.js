@@ -10,9 +10,38 @@ window.$AppConfig = window.$AppConfig || {server: '/dataserver2/'};
 
 
 class TestKitchenSink extends React.Component {
+
+	state = {}
+
+	constructor (props) {
+		super(props);
+		this.state = {
+			fieldValue: 0,
+			cmpValue: 0
+		};
+	}
+
+	handleChange = (event) => {
+		this.setState({fieldValue: parseInt(event.target.value, 10)});
+	}
+
+	handleSubmit = (event) => {
+		event.preventDefault();
+		this.setState({cmpValue: parseInt(this.state.fieldValue, 10)});
+	}
+
 	render () {
 		return (
-			<NumericValue label="Learners Online Now" value={10} key="foo" />
+			<div>
+				<form onSubmit={this.handleSubmit}>
+					<label>
+						Value:
+						<input type="text" value={this.state.username} onChange={this.handleChange} />
+					</label>
+					<input type="submit" value="Update" />
+				</form>
+				<NumericValue label="Learners Online Now" value={this.state.cmpValue} key="foo" />
+			</div>
 		);
 	}
 }
