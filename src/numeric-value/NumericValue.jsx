@@ -1,6 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+function calculateChange(oldValue, newValue) {
+	if ( newValue === oldValue ) {
+		return undefined;
+	}
+
+	if ( oldValue === undefined || oldValue === 0 ) {
+		return 100;
+	}
+
+	return ( (newValue - oldValue) / oldValue ) * 100;
+}
+
 export default class NumericValue extends React.Component {
 
 	state = {
@@ -11,6 +23,18 @@ export default class NumericValue extends React.Component {
 		label: PropTypes.string.isRequired,
 		value: PropTypes.number.isRequired,
 		key: PropTypes.string
+	}
+
+	componentWillReceiveProps (newProps) {
+		const newValue = newProps.value;
+		const oldValue = this.props.value;
+
+		if (newValue !== oldValue) {
+			const change = calculateChange(oldValue, newValue);
+			if (change !== undefined){
+				this.setState({change: Math.round(change)});
+			}
+		}
 	}
 
 	render () {
