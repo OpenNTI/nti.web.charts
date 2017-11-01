@@ -16,8 +16,8 @@ class TestKitchenSink extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			fieldValue: 0,
-			cmpValue: 0
+			fieldValue: 75,
+			cmpValue: 75
 		};
 	}
 
@@ -40,7 +40,7 @@ class TestKitchenSink extends React.Component {
 					</label>
 					<input type="submit" value="Update" />
 				</form>
-				<NumericValue label="Learners Online Now" value={this.state.cmpValue} key="foo" />
+				<NumericValue label="Learners Online Now" value={this.state.cmpValue} storageKey="testkey" />
 			</div>
 		);
 	}
