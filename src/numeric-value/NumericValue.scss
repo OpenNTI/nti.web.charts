@@ -33,22 +33,25 @@
 		position: absolute;
     	padding-bottom: 30px;
     	bottom: 0px;
+
+    	&::before {
+    		margin-right: 7px;
+    		background-image: url('assets/down-arrow.svg');
+    		width: 17px;
+    		height: 20px;
+    		content: "";
+    		display: inline-block;
+    	}
+
 		&.positive {
 			display: block;
 			&::before {
-				content: "➜ ";
-				display: inline-block;
-				transform: rotate(270deg);
+				transform: rotate(180deg);
 			}
 		}
 
 		&.negative {
 			display: block;
-			&::before {
-				content: "➜ ";
-				display: inline-block;
-				transform: rotate(90deg);
-			}
 		}
 	}
 }
