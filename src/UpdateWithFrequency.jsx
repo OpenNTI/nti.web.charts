@@ -17,8 +17,13 @@ export default class UpdateWithFrequency extends React.Component {
 
 	async loadData () {
 		const selectData = this.props.selectData;
-		const data = await selectData();
-		this.setState({data: data});
+		try {
+			const data = await selectData();
+			this.setState({data: data});
+		}
+		catch (e) {
+			this.setState({data: {error: e}});
+		}
 
 		const frequency = this.props.frequency;
 		if (frequency) {
