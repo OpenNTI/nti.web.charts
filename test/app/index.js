@@ -5,6 +5,7 @@ import 'nti-style-common/all.scss';
 import 'nti-web-commons/lib/index.css';
 
 import {NumericValue} from '../../src';
+import {UpdateWithFrequency} from '../../src';
 
 window.$AppConfig = window.$AppConfig || {server: '/dataserver2/'};
 
@@ -19,6 +20,15 @@ class TestKitchenSink extends React.Component {
 			fieldValue: 75,
 			cmpValue: 75
 		};
+	}
+
+	async randValue () {
+		const value = Math.floor(Math.random() * (100) + 1);
+		return new Promise(resolve => {
+			setTimeout(() => {
+				resolve({value: value});
+			}, 5000);
+		});
 	}
 
 	handleChange = (event) => {
@@ -41,6 +51,9 @@ class TestKitchenSink extends React.Component {
 					<input type="submit" value="Update" />
 				</form>
 				<NumericValue label="Learners Online Now" value={this.state.cmpValue} storageKey="testkey" />
+				<UpdateWithFrequency frequency={3000} selectData={this.randValue}>
+					<NumericValue label="Learners Online"/>
+				</UpdateWithFrequency>
 			</div>
 		);
 	}
