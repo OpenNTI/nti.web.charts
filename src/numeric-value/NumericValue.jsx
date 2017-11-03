@@ -24,7 +24,7 @@ export default class NumericValue extends React.Component {
 
 	static propTypes = {
 		label: PropTypes.string.isRequired,
-		value: PropTypes.number.isRequired,
+		value: PropTypes.number,
 		storageKey: PropTypes.string
 	}
 
