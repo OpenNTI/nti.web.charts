@@ -2,7 +2,12 @@
   "name": "nti-web-charts",
   "version": "0.1.0-alpha",
   "description": "Components for showing charts",
-  "main": "index.js",
+  "main": "./lib/cjs-index.js",
+  "module": "./lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "style": "./lib/index.css",
   "scripts": {
     "test": "nti-cmp-scripts test",
     "start": "nti-cmp-scripts start",
