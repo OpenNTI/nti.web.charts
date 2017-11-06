@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {VisibilityMonitor} from 'nti-lib-dom';
 
 export default class UpdateWithFrequency extends React.Component {
 	static propTypes = {
@@ -25,24 +26,46 @@ export default class UpdateWithFrequency extends React.Component {
 			this.setState({data: {error: e}});
 		}
 
+		this.setTimer();
+	}
+
+	componentDidMount () {
+		this.loadData();
+		VisibilityMonitor.addChangeListener(this.visChangeHandler);
+	}
+
+	componentWillUnmount () {
+		this.clearTimer();
+		VisibilityMonitor.removeChangeListener(this.visChangeHandler);
+	}
+
+	setTimer () {
+		this.clearTimer();
+
 		const frequency = this.props.frequency;
 		if (frequency) {
 			this.timeoutId = setTimeout(this.timer, frequency);
 		}
 	}
 
-	componentDidMount () {
-		this.loadData();
-	}
-
-	componentWillUnmount () {
+	clearTimer () {
 		if (this.timeoutId) {
 			clearTimeout(this.timeoutId);
+			this.timeoutId = null;
 		}
 	}
 
 	timer = () => {
 		this.loadData();
+	}
+
+	visChangeHandler = (visible) => {
+		if (visible) {
+			this.setTimer();
+		}
+		else {
+			this.clearTimer();
+		}
 	}
 
 	render () {
