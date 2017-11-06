@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "nti-lib-dom": "^1.7.1",
     "nti-lib-store-connector": "0.x.x",
     "nti-style-common": "^1.2.6",
     "nti-web-client": "^1.2.0",
