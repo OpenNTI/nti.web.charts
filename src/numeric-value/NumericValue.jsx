@@ -5,11 +5,11 @@ import {LocalStorage} from 'nti-web-storage';
 const KEY_PREFIX = '_nti_numeric_value_';
 
 function calculateChange (oldValue, newValue) {
-	if ( newValue === oldValue ) {
+	if ( newValue === oldValue || oldValue === undefined ) {
 		return undefined;
 	}
 
-	if ( oldValue === undefined || oldValue === 0 ) {
+	if ( oldValue === 0 ) {
 		return 100;
 	}
 
@@ -18,9 +18,7 @@ function calculateChange (oldValue, newValue) {
 
 export default class NumericValue extends React.Component {
 
-	state = {
-		change: 0
-	}
+	state = {}
 
 	static propTypes = {
 		label: PropTypes.string.isRequired,
@@ -94,11 +92,10 @@ export default class NumericValue extends React.Component {
 				<div className="value">
 					{value}
 				</div>
-				<div className={changeClass}>
+				{this.state.change && (<div className={changeClass}>
 					{change}%
-				</div>
+				</div>)}
 			</div>
 		);
 	}
 }
-
