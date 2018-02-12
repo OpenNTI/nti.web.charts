@@ -2,7 +2,7 @@
   "name": "nti-web-charts",
   "version": "0.2.0-alpha",
   "description": "Components for showing charts",
-  "main": "./lib/cjs-index.js",
+  "main": "./lib/index-cjs.js",
   "module": "./lib/index.js",
   "files": [
     "lib"
