@@ -118,8 +118,16 @@ export default class CircularProgress extends React.Component {
 			height: p.height
 		};
 
+		const otherProps = {...this.props};
+
+		delete otherProps.deficitFillColor;
+		delete otherProps.showValue;
+		delete otherProps.showPctSymbol;
+		delete otherProps.pixelDensity;
+		delete otherProps.lineThickness;
+
 		return (
-			<canvas ref={this.attachRef} {...this.props} className="value" style={style} width={width} height={height} />
+			<canvas ref={this.attachRef} {...otherProps} className="value" style={style} width={width} height={height} />
 		);
 	}
 
