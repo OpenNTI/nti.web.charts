@@ -92,9 +92,11 @@ export default class NumericValue extends React.Component {
 				<div className="value">
 					{value}
 				</div>
-				{this.state.change && (<div className={changeClass}>
-					{change}%
-				</div>)}
+				{this.state.change && (
+					<div className={changeClass}>
+						{change}%
+					</div>
+				)}
 			</div>
 		);
 	}
