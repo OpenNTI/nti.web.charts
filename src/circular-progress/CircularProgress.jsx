@@ -123,9 +123,11 @@ export default class CircularProgress extends React.Component {
 						strokeDasharray={`${value}, 100`}
 					/>
 				</svg>
-				{showValue && (<div className="value" style={valueStyle}>
-					{value}
-				</div>)}
+				{showValue && (
+					<div className="value" style={valueStyle}>
+						{value}
+					</div>
+				)}
 			</div>
 		);
 	}
