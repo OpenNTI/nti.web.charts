@@ -58,19 +58,22 @@ export default class CircularProgress extends React.Component {
 	render () {
 		const {value, strokeColor, deficitFillColor, isComplete} = this.props;
 
+		const calculatedWidth = parseInt(this.props.width, 10);
+		const calculatedHeight = parseInt(this.props.height, 10);
+
 		if(isComplete) {
-			const fontSize = this.props.width / 1.5;
+			const fontSize = calculatedWidth / 1.5;
 
 			let completedStyle = {
-				width: this.props.width,
-				height: this.props.height,
-				borderRadius: this.props.width
+				width: calculatedWidth,
+				height: calculatedWidth,
+				borderRadius: calculatedWidth
 			};
 
 			let checkStyle = {
 				fontSize,
-				width: this.props.width,
-				top: this.props.height / 10
+				width: calculatedWidth,
+				top: calculatedHeight / 10
 			};
 
 			return (
@@ -80,12 +83,12 @@ export default class CircularProgress extends React.Component {
 			);
 		}
 
-		const fontSize = this.props.width / 3;
-		const top = this.props.height / 4;
+		const fontSize = calculatedWidth / 3;
+		const top = calculatedHeight / 4;
 
 		let valueStyle = {
 			fontSize,
-			width: this.props.width,
+			width: calculatedWidth,
 			top
 		};
 
