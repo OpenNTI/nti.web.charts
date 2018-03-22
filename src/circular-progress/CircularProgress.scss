@@ -1,0 +1,37 @@
+@import "~nti-style-common";
+
+.circular-progress {
+	position: relative;
+
+	.value {
+		position: absolute;
+		color: #3fb34f;
+		text-align: center;
+	}
+
+	&.no-progress {
+		.value {
+			color: $tertiary-grey;
+		}
+	}
+
+	&.progress-complete-container {
+		display: flex;
+		color: #3fb34f;
+		cursor: pointer;
+
+		.progress-completed {
+			background-color: #3fb34f;
+			width: 24px;
+			height: 24px;
+			border-radius: 25px;
+			position: relative;
+
+			.check {
+				color: white;
+				position: absolute;
+				text-align: center;
+			}
+		}
+	}
+}
