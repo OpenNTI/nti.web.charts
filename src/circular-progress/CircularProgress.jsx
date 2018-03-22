@@ -44,7 +44,14 @@ export default class CircularProgress extends React.Component {
 		 *
 		 * @type {bool} Default: undefined
 		 */
-		isComplete: PropTypes.bool
+		isComplete: PropTypes.bool,
+
+		/**
+		 * Toggles visibility of numeric label
+		 *
+		 * @type {bool} Default: true
+		 */
+		showValue: PropTypes.bool
 	}
 
 	static defaultProps = {
@@ -52,11 +59,12 @@ export default class CircularProgress extends React.Component {
 		strokeColor: '#3fb34f',
 		deficitFillColor: '#eee',
 		width: 200,
-		height: 200
+		height: 200,
+		showValue: true
 	}
 
 	render () {
-		const {value, strokeColor, deficitFillColor, isComplete} = this.props;
+		const {value, strokeColor, deficitFillColor, showValue, isComplete} = this.props;
 
 		const calculatedWidth = parseInt(this.props.width, 10);
 		const calculatedHeight = parseInt(this.props.height, 10);
@@ -115,9 +123,9 @@ export default class CircularProgress extends React.Component {
 						strokeDasharray={`${value}, 100`}
 					/>
 				</svg>
-				<div className="value" style={valueStyle}>
+				{showValue && (<div className="value" style={valueStyle}>
 					{value}
-				</div>
+				</div>)}
 			</div>
 		);
 	}
