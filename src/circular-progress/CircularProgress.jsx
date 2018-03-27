@@ -51,20 +51,28 @@ export default class CircularProgress extends React.Component {
 		 *
 		 * @type {bool} Default: true
 		 */
-		showValue: PropTypes.bool
+		showValue: PropTypes.bool,
+
+		/**
+		 * Toggles visibility of % symbol
+		 *
+		 * @type {bool} Default: false
+		 */
+		showPercentSymbol: PropTypes.bool
 	}
 
 	static defaultProps = {
-		value: 90,
+		value: 0,
 		strokeColor: '#3fb34f',
 		deficitFillColor: '#eee',
 		width: 200,
 		height: 200,
-		showValue: true
+		showValue: true,
+		showPercentSymbol: false
 	}
 
 	render () {
-		const {value, strokeColor, deficitFillColor, showValue, isComplete} = this.props;
+		const {value, strokeColor, deficitFillColor, showValue, showPercentSymbol, isComplete} = this.props;
 
 		const calculatedWidth = parseInt(this.props.width, 10);
 		const calculatedHeight = parseInt(this.props.height, 10);
@@ -100,6 +108,10 @@ export default class CircularProgress extends React.Component {
 			top
 		};
 
+		let percentStyle = {
+			fontSize: fontSize / 2
+		};
+
 		const className = cx('circular-progress', {'no-progress': value === 0});
 
 		return (
@@ -125,7 +137,8 @@ export default class CircularProgress extends React.Component {
 				</svg>
 				{showValue && (
 					<div className="value" style={valueStyle}>
-						{value}
+						<span className="number">{value}</span>
+						{showPercentSymbol && <span className="percent" style={percentStyle}>%</span>}
 					</div>
 				)}
 			</div>
