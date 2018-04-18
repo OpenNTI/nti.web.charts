@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {VisibilityMonitor} from 'nti-lib-dom';
+import {VisibilityMonitor} from '@nti/lib-dom';
 
 export default class UpdateWithFrequency extends React.Component {
 	static propTypes = {
