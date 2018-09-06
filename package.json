@@ -8,7 +8,6 @@
     "lib",
     "src"
   ],
-  "style": "./lib/index.css",
   "scripts": {
     "test": "cmp-scripts test",
     "start": "cmp-scripts start",
