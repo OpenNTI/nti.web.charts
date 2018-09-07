@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import '@nti/style-common/all.scss';
-import '@nti/web-commons/lib/index.css';
-
 import {NumericValue} from '../../src';
 import {UpdateWithFrequency} from '../../src';
 
