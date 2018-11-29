@@ -23,6 +23,7 @@ export default class NumericValue extends React.Component {
 	static propTypes = {
 		label: PropTypes.string.isRequired,
 		value: PropTypes.number,
+		error: PropTypes.node,
 		storageKey: PropTypes.string
 	}
 
@@ -72,7 +73,7 @@ export default class NumericValue extends React.Component {
 	}
 
 	render () {
-		const { label, value } = this.props;
+		const { label, value, error } = this.props;
 		const rawChange = this.state.change || 0;
 
 		let change = Math.abs(rawChange);
@@ -90,7 +91,7 @@ export default class NumericValue extends React.Component {
 					{label}
 				</div>
 				<div className="value">
-					{value}
+					{error || value}
 				</div>
 				{this.state.change && (
 					<div className={changeClass}>
