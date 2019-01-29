@@ -25,8 +25,8 @@ const d2r = d => d * (Math.PI / 180);
 const r2d = r => r / (Math.PI / 180);
 
 /**
- * find the angle that will produce an arc of a given length at a given radius
- * using this to allow for gaps between the segments. returns angle in radians
+ * Find the angle that will produce an arc of a given length at a given radius.
+ * Using this to allow for gaps between the segments. Returns angle in radians
  * arcLength = radius * angleInRadians
  * 
  * @param {number} arcLength - the sought arc length in local coordinate space
@@ -48,7 +48,7 @@ const center = size / 2;
 /**
  * The diameter of the chart's inner hole in local coordinate space units
  */
-const hole = 40;
+const hole = 55;
 
 /**
  * The thickness of the chart segments for the given size and hole
@@ -201,7 +201,7 @@ export default class PieChart extends React.Component {
 
 		return !(items || []).length ? null : (
 			<div className={cx('pie-chart', className)}>
-				<svg width="250" height="250" viewBox={`0 0 ${size} ${size}`}>
+				<svg viewBox={`0 0 ${size} ${size}`}>
 					{
 						items.reduce(this.makeSegment, {paths: [], subtotal: 0}).paths
 					}
