@@ -1,29 +1,50 @@
 .pie-chart {
-	position: relative;
-	height: 0;
 	width: 100%;
+}
+
+.title {
+	font-size: 0.6rem;
+	text-transform: uppercase;
+	font-weight: 700;
+	line-height: normal;
+	color: var(--tertiary-grey, #b8b8b8);
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+.legend {
+	list-style: none;
+	margin: 0;
 	padding: 0;
-	padding-bottom: 100%;
+	font-size: 0.6rem;
+	text-transform: uppercase;
+	font-weight: 700;
+	display: flex;
+	flex-wrap: wrap;
 }
 
-.pie-chart svg {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
+.legend li {
+	margin: 0.5em;
 }
 
-.segment:nth-child(3n + 1) {
+.legend li > *:not(:last-child) {
+	margin-right: 0.5em; /* space between label, value, and percentage */
+}
+
+.segment:nth-child(3n + 1),
+.legend li:nth-child(3n + 1) .label {
 	fill: var(--secondary-green, #3fb34f);
+	color: var(--secondary-green, #3fb34f);
 }
 
-.segment:nth-child(3n + 2) {
+.segment:nth-child(3n + 2),
+.legend li:nth-child(3n + 2) .label {
 	fill: var(--primary-blue, #3fb3f6);
+	color: var(--primary-blue, #3fb3f6);
 }
 
-.segment:nth-child(3n + 3) {
+.segment:nth-child(3n + 3),
+.legend li:nth-child(3n + 3) .label {
 	fill: var(--primary-orange, #fa8700);
+	color: var(--primary-orange, #fa8700);
 }

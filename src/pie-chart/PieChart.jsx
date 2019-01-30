@@ -111,6 +111,7 @@ const coords = (deg, r) => {
 export default class PieChart extends React.Component {
 
 	static propTypes = {
+		title: PropTypes.string,
 		series: PropTypes.arrayOf(
 			PropTypes.shape({
 				value: PropTypes.number.isRequired,
@@ -118,6 +119,11 @@ export default class PieChart extends React.Component {
 				color: PropTypes.string
 			})
 		),
+		classes: PropTypes.shape({
+			container: PropTypes.string,
+			chart: PropTypes.string,
+			legend: PropTypes.string,
+		}),
 		colors: PropTypes.arrayOf(
 			PropTypes.string
 		)
@@ -196,16 +202,30 @@ export default class PieChart extends React.Component {
 	}
 
 	render () {
-		const {className} = this.props;
+		const {className, title, classes: {container, title: titleClass, chart, legend} = {}} = this.props;
 		const items = this.computePercentages();
 
 		return !(items || []).length ? null : (
-			<div className={cx('pie-chart', className)}>
-				<svg viewBox={`0 0 ${size} ${size}`}>
-					{
-						items.reduce(this.makeSegment, {paths: [], subtotal: 0}).paths
-					}
-				</svg>
+			<div className={cx('pie-chart-wrapper', container, className)}>
+				{title && (
+					<div className={cx('title', titleClass)}>{title}</div>
+				)}
+				<div className={cx('pie-chart', chart)}>
+					<svg viewBox={`0 0 ${size} ${size}`}>
+						{
+							items.reduce(this.makeSegment, {paths: [], subtotal: 0}).paths
+						}
+					</svg>
+				</div>
+				<ul className={cx('legend', legend)}>
+					{items.map(({value, percent, label}) => (
+						<li key={`${value}-${label}`}>
+							<span className={cx('label')}>{label}</span>
+							{/* <span className={cx('value')}>{value}</span> */}
+							<span className={cx('percent')}>({Math.round(percent * 100)}%)</span>
+						</li>
+					))}
+				</ul>
 			</div>
 		);
 	}
