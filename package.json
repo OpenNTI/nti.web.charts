@@ -2,6 +2,9 @@
   "name": "@nti/web-charts",
   "version": "0.10.0-alpha",
   "description": "Components for showing charts",
+  "sideEffects": [
+    "*.scss"
+  ],
   "main": "lib/index.js",
   "module": "src/index.js",
   "files": [
