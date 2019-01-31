@@ -120,9 +120,13 @@ export default class PieChart extends React.Component {
 			})
 		),
 		classes: PropTypes.shape({
+			title: PropTypes.string,
 			container: PropTypes.string,
 			chart: PropTypes.string,
 			legend: PropTypes.string,
+			legendLabel: PropTypes.string,
+			// legendValue: PropTypes.string,
+			legendPercent: PropTypes.string
 		}),
 		colors: PropTypes.arrayOf(
 			PropTypes.string
@@ -175,7 +179,7 @@ export default class PieChart extends React.Component {
 
 		paths.push(
 			<path
-				className={cx('segment')}
+				className={cx('nti-pie-chart-segment')}
 				{...fillProp}
 				stroke="none"
 				d={commands.join(' ')}
@@ -202,27 +206,39 @@ export default class PieChart extends React.Component {
 	}
 
 	render () {
-		const {className, title, classes: {container, title: titleClass, chart, legend} = {}} = this.props;
+		const {
+			className,
+			title,
+			classes: {
+				container: containerClass,
+				title: titleClass,
+				chart,
+				legend,
+				legendLabel,
+				// legendValue,
+				legendPercent
+			} = {}
+		} = this.props;
 		const items = this.computePercentages();
 
 		return !(items || []).length ? null : (
-			<div className={cx('pie-chart-wrapper', container, className)}>
+			<div className={cx(containerClass, className)}>
 				{title && (
-					<div className={cx('title', titleClass)}>{title}</div>
+					<div className={cx('nti-pie-chart-title', titleClass)}>{title}</div>
 				)}
-				<div className={cx('pie-chart', chart)}>
+				<div className={cx('nti-pie-chart', chart)}>
 					<svg viewBox={`0 0 ${size} ${size}`}>
 						{
 							items.reduce(this.makeSegment, {paths: [], subtotal: 0}).paths
 						}
 					</svg>
 				</div>
-				<ul className={cx('legend', legend)}>
+				<ul className={cx('nti-pie-chart-legend', legend)}>
 					{items.map(({value, percent, label}) => (
 						<li key={`${value}-${label}`}>
-							<span className={cx('label')}>{label}</span>
-							{/* <span className={cx('value')}>{value}</span> */}
-							<span className={cx('percent')}>({Math.round(percent * 100)}%)</span>
+							<span className={cx('nti-pie-chart-legend-label', legendLabel)}>{label}</span>
+							{/* <span className={cx('nti-pie-chart-legend-value', legendValue)}>{value}</span> */}
+							<span className={cx('nti-pie-chart-legend-percent', legendPercent)}>({Math.round(percent * 100)}%)</span>
 						</li>
 					))}
 				</ul>

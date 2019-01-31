@@ -1,8 +1,8 @@
-.pie-chart {
+.nti-pie-chart {
 	width: 100%;
 }
 
-.title {
+.nti-pie-chart-title {
 	font-size: 0.6rem;
 	text-transform: uppercase;
 	font-weight: 700;
@@ -12,7 +12,7 @@
 	margin-bottom: 1em;
 }
 
-.legend {
+.nti-pie-chart-legend {
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -23,28 +23,28 @@
 	flex-wrap: wrap;
 }
 
-.legend li {
+.nti-pie-chart-legend li {
 	margin: 0.5em;
 }
 
-.legend li > *:not(:last-child) {
+.nti-pie-chart-legend li > *:not(:last-child) {
 	margin-right: 0.5em; /* space between label, value, and percentage */
 }
 
-.segment:nth-child(3n + 1),
-.legend li:nth-child(3n + 1) .label {
+.nti-pie-chart-segment:nth-child(3n + 1),
+.nti-pie-chart-legend li:nth-child(3n + 1) .nti-pie-chart-legend-label {
 	fill: var(--secondary-green, #3fb34f);
 	color: var(--secondary-green, #3fb34f);
 }
 
-.segment:nth-child(3n + 2),
-.legend li:nth-child(3n + 2) .label {
+.nti-pie-chart-segment:nth-child(3n + 2),
+.nti-pie-chart-legend li:nth-child(3n + 2) .nti-pie-chart-legend-label {
 	fill: var(--primary-blue, #3fb3f6);
 	color: var(--primary-blue, #3fb3f6);
 }
 
-.segment:nth-child(3n + 3),
-.legend li:nth-child(3n + 3) .label {
+.nti-pie-chart-segment:nth-child(3n + 3),
+.nti-pie-chart-legend li:nth-child(3n + 3) .nti-pie-chart-legend-label {
 	fill: var(--primary-orange, #fa8700);
 	color: var(--primary-orange, #fa8700);
 }
