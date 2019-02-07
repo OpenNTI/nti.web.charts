@@ -179,6 +179,7 @@ export default class PieChart extends React.Component {
 
 		paths.push(
 			<path
+				key={i}
 				className={cx('nti-pie-chart-segment')}
 				{...fillProp}
 				stroke="none"
