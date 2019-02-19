@@ -25,6 +25,7 @@
 
 .nti-pie-chart-legend li {
 	margin: 0 0.5em;
+	flex: 1 1 auto;
 }
 
 .nti-pie-chart-legend li > *:not(:last-child) {
