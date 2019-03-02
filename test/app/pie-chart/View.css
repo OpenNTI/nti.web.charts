@@ -1,0 +1,7 @@
+.pie-chart-test {
+	display: grid;
+	grid-template-columns: 100px 400px;
+	gap: 150px;
+	max-width: 800px;
+	margin: 0 auto;
+}
