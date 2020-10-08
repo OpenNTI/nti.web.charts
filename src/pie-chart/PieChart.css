@@ -40,8 +40,8 @@
 
 .nti-pie-chart-segment:nth-child(3n + 2),
 .nti-pie-chart-legend li:nth-child(3n + 2) .nti-pie-chart-legend-label {
-	fill: var(--primary-blue, #3fb3f6);
-	color: var(--primary-blue, #3fb3f6);
+	fill: var(--primary-blue);
+	color: var(--primary-blue);
 }
 
 .nti-pie-chart-segment:nth-child(3n + 3),

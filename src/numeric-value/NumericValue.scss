@@ -1,7 +1,7 @@
 @import "~@nti/style-common";
 
 .numeric-value {
-	background-color: $primary-blue;
+	background-color: var(--primary-blue);
 	color: #FFFFFF;
 	padding: 20px;
 	padding-bottom: 30px;
