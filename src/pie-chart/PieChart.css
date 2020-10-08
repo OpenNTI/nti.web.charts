@@ -46,6 +46,6 @@
 
 .nti-pie-chart-segment:nth-child(3n + 3),
 .nti-pie-chart-legend li:nth-child(3n + 3) .nti-pie-chart-legend-label {
-	fill: var(--primary-orange, #fa8700);
-	color: var(--primary-orange, #fa8700);
+	fill: var(--primary-orange);
+	color: var(--primary-orange);
 }
