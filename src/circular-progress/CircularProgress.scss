@@ -11,7 +11,7 @@
 
 	&.no-progress {
 		.value {
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 		}
 	}
 
