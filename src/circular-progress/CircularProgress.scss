@@ -5,23 +5,23 @@
 
 	.value {
 		position: absolute;
-		color: #3fb34f;
+		color: var(--secondary-green);
 		text-align: center;
 	}
 
 	&.no-progress {
 		.value {
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 		}
 	}
 
 	&.progress-complete-container {
 		display: flex;
-		color: #3fb34f;
+		color: var(--secondary-green);
 		cursor: pointer;
 
 		.progress-completed {
-			background-color: #3fb34f;
+			background-color: var(--secondary-green);
 			width: 24px;
 			height: 24px;
 			border-radius: 25px;
