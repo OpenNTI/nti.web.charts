@@ -66,9 +66,9 @@ export default class NumericValue extends React.Component {
 		}
 	}
 
-	componentWillReceiveProps (newProps) {
-		const newValue = newProps.value;
-		const oldValue = this.props.value;
+	componentDidUpdate (oldProps) {
+		const oldValue = oldProps.value;
+		const newValue = this.props.value;
 
 		this.maybeUpdateChange(oldValue, newValue);
 	}
