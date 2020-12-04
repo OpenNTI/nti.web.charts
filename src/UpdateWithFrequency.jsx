@@ -1,77 +1,69 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import {VisibilityMonitor} from '@nti/lib-dom';
 
-export default class UpdateWithFrequency extends React.Component {
-	static propTypes = {
-		children: PropTypes.node,
-		frequency: PropTypes.number,
-		selectData: PropTypes.func.isRequired
-	}
+const CANCELED = Symbol('canceled');
 
-	constructor (props) {
-		super(props);
-		this.state = {
-			data: null
-		};
-	}
+UpdateWithFrequency.propTypes = {
+	children: PropTypes.node,
+	frequency: PropTypes.number,
+	selectData: PropTypes.func.isRequired
+};
 
-	async loadData () {
-		const selectData = this.props.selectData;
+export default function UpdateWithFrequency ({children, frequency, selectData}) {
+	const timer = useRef();
+	const taskRun = useRef(null);
+	const [data, setData] = useState();
+
+	const load = useCallback(async () => {
+		const activeTask = {};
+		const gate = taskRun;
+		if (gate.current) { return; }
+		let newData = null;
 		try {
-			const data = await selectData();
-			this.setState({data: data});
+			gate.current = activeTask;
+			// console.log('load');
+			newData = await selectData();
 		}
 		catch (e) {
-			this.setState({data: {error: e}});
+			newData = {error: e};
+		}
+		finally {
+			if (gate.current === activeTask) {
+				gate.current = null;
+				setData(newData);
+			}
 		}
 
-		this.setTimer();
-	}
+	}, [selectData]);
 
-	componentDidMount () {
-		this.loadData();
-		VisibilityMonitor.addChangeListener(this.visChangeHandler);
-	}
+	const stopTimer = useCallback(() => {
+		clearTimeout(timer.current);
+		timer.current = null;
+		// console.log('stop');
+	}, []);
 
-	componentWillUnmount () {
-		this.clearTimer();
-		VisibilityMonitor.removeChangeListener(this.visChangeHandler);
-	}
+	const startTimer = useCallback(() => {
+		stopTimer();
+		// console.log('start');
+		timer.current = setTimeout(() => load().then(startTimer), frequency);
+	}, [frequency, load]);
 
-	setTimer () {
-		this.clearTimer();
+	useEffect (() => {
+		load();
+		startTimer();
 
-		const frequency = this.props.frequency;
-		if (frequency) {
-			this.timeoutId = setTimeout(this.timer, frequency);
-		}
-	}
+		const change = (visible) => (visible) ? startTimer() : stopTimer();
+		VisibilityMonitor.addChangeListener(change);
 
-	clearTimer () {
-		if (this.timeoutId) {
-			clearTimeout(this.timeoutId);
-			this.timeoutId = null;
-		}
-	}
+		return () => {
+			// console.log('cleanup');
+			taskRun.current = CANCELED;
+			VisibilityMonitor.removeChangeListener(change);
+		};
+	}, [load, startTimer, stopTimer]);
 
-	timer = () => {
-		this.loadData();
-	}
 
-	visChangeHandler = (visible) => {
-		if (visible) {
-			this.setTimer();
-		}
-		else {
-			this.clearTimer();
-		}
-	}
-
-	render () {
-		const kids = React.Children.only(this.props.children);
-		return (
-			React.cloneElement(kids, {...this.state.data})
-		);
-	}
+	return React.cloneElement(React.Children.only(children), {...data});
 }
+
