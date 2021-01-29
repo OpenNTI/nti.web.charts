@@ -1,1 +1,1 @@
-export default from './NumericValue';
+export { default } from './NumericValue';
