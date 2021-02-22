@@ -1,56 +1,55 @@
 import './NumericValue.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {LocalStorage} from '@nti/web-storage';
+import { LocalStorage } from '@nti/web-storage';
 
 const KEY_PREFIX = '_nti_numeric_value_';
 
-function calculateChange (oldValue, newValue) {
-	if ( newValue === oldValue || oldValue === undefined ) {
+function calculateChange(oldValue, newValue) {
+	if (newValue === oldValue || oldValue === undefined) {
 		return undefined;
 	}
 
-	if ( oldValue === 0 ) {
+	if (oldValue === 0) {
 		return 100;
 	}
 
-	return Math.round(( (newValue - oldValue) / oldValue ) * 100);
+	return Math.round(((newValue - oldValue) / oldValue) * 100);
 }
 
 export default class NumericValue extends React.Component {
-
-	state = {}
+	state = {};
 
 	static propTypes = {
 		label: PropTypes.string.isRequired,
 		value: PropTypes.number,
 		error: PropTypes.node,
-		storageKey: PropTypes.string
-	}
+		storageKey: PropTypes.string,
+	};
 
-	constructor (props) {
+	constructor(props) {
 		super(props);
 
 		const key = this.storageKey();
-		if ( key ) {
+		if (key) {
 			const oldValue = parseInt(LocalStorage.getItem(key), 10);
 			LocalStorage.setItem(key, props.value);
 
 			this.state = {
-				change: calculateChange(oldValue, props.value)
+				change: calculateChange(oldValue, props.value),
 			};
 		}
 	}
 
-	storageKey () {
-		const {storageKey} = this.props;
+	storageKey() {
+		const { storageKey } = this.props;
 		if (!storageKey) {
 			return undefined;
 		}
 		return KEY_PREFIX + storageKey;
 	}
 
-	maybeUpdateChange (oldValue, newValue) {
+	maybeUpdateChange(oldValue, newValue) {
 		if (oldValue === newValue) {
 			return;
 		}
@@ -62,18 +61,18 @@ export default class NumericValue extends React.Component {
 
 		const change = calculateChange(oldValue, newValue);
 		if (change !== undefined) {
-			this.setState({change: change});
+			this.setState({ change: change });
 		}
 	}
 
-	componentDidUpdate (oldProps) {
+	componentDidUpdate(oldProps) {
 		const oldValue = oldProps.value;
 		const newValue = this.props.value;
 
 		this.maybeUpdateChange(oldValue, newValue);
 	}
 
-	render () {
+	render() {
 		const { label, value, error } = this.props;
 		const rawChange = this.state.change || 0;
 
@@ -81,23 +80,16 @@ export default class NumericValue extends React.Component {
 		let changeClass = 'change';
 		if (rawChange > 0) {
 			changeClass += ' positive';
-		}
-		else if (rawChange < 0) {
+		} else if (rawChange < 0) {
 			changeClass += ' negative';
 		}
 
 		return (
 			<div className="numeric-value">
-				<div className="label">
-					{label}
-				</div>
-				<div className="value">
-					{error || value}
-				</div>
+				<div className="label">{label}</div>
+				<div className="value">{error || value}</div>
 				{this.state.change && (
-					<div className={changeClass}>
-						{change}%
-					</div>
+					<div className={changeClass}>{change}%</div>
 				)}
 			</div>
 		);

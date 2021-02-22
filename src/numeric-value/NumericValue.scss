@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .numeric-value {
 	background-color: var(--primary-blue);
@@ -41,7 +41,7 @@
 			background-image: url('assets/down-arrow.svg');
 			width: 17px;
 			height: 20px;
-			content: "";
+			content: '';
 			display: inline-block;
 		}
 

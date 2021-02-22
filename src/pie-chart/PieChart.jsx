@@ -28,7 +28,7 @@ const r2d = r => r / (Math.PI / 180);
  * Find the angle that will produce an arc of a given length at a given radius.
  * Using this to allow for gaps between the segments. Returns angle in radians
  * arcLength = radius * angleInRadians
- * 
+ *
  * @param {number} arcLength - the sought arc length in local coordinate space
  * @param {number} atRadius - the radius of the arc
  * @returns {number} - the angle in radians of an arc of the given length at the given radius
@@ -91,7 +91,6 @@ const minimumAngleDeg = r2d(angleForArcLength(gapSize * 2, radiusInner));
  */
 const minimumValue = minimumAngleDeg / 360;
 
-
 /**
  * Computes an x/y coordinate for the given angle and radius
  * @param {number} deg - The angle in degrees
@@ -101,22 +100,17 @@ const minimumValue = minimumAngleDeg / 360;
 const coords = (deg, r) => {
 	const rad = d2r(deg);
 
-	return [
-		center - Math.cos(rad) * r,
-		center - Math.sin(rad) * r
-	];
+	return [center - Math.cos(rad) * r, center - Math.sin(rad) * r];
 };
 
-
 export default class PieChart extends React.Component {
-
 	static propTypes = {
 		title: PropTypes.string,
 		series: PropTypes.arrayOf(
 			PropTypes.shape({
 				value: PropTypes.number.isRequired,
 				label: PropTypes.string,
-				color: PropTypes.string
+				color: PropTypes.string,
 			})
 		),
 		classes: PropTypes.shape({
@@ -126,17 +120,15 @@ export default class PieChart extends React.Component {
 			legend: PropTypes.string,
 			legendLabel: PropTypes.string,
 			// legendValue: PropTypes.string,
-			legendPercent: PropTypes.string
+			legendPercent: PropTypes.string,
 		}),
-		colors: PropTypes.arrayOf(
-			PropTypes.string
-		)
-	}
+		colors: PropTypes.arrayOf(PropTypes.string),
+	};
 
-	makeSegment = ({paths, subtotal}, {percent, color}, i) => {
-		const {colors = []} = this.props;
+	makeSegment = ({ paths, subtotal }, { percent, color }, i) => {
+		const { colors = [] } = this.props;
 		const startAngle = subtotal * 360 + 90; // +90 so we start at 12 o'clock
-		const endAngle = startAngle + (percent * 360);
+		const endAngle = startAngle + percent * 360;
 
 		// no gaps for values beneath the minimum threshold
 		const useGap = percent >= minimumValue;
@@ -159,23 +151,23 @@ export default class PieChart extends React.Component {
 
 		const commands = [
 			// move to start angle coordinate, inner radius
-			`M${ x1 } ${ y1 }`,
+			`M${x1} ${y1}`,
 
 			// line to start angle coordinate, outer radius
-			`L${ x2 } ${ y2 }`,
+			`L${x2} ${y2}`,
 
 			// arc to end angle coordinate, outer radius
-			`A${ radiusOuter } ${ radiusOuter } 0 ${ largeArc } ${ sweepOuter } ${ x3 } ${ y3 }`,
+			`A${radiusOuter} ${radiusOuter} 0 ${largeArc} ${sweepOuter} ${x3} ${y3}`,
 
 			// line to end angle coordinate, inner radius
-			`L${ x4 } ${ y4 }`,
+			`L${x4} ${y4}`,
 
 			// arc back to start angle coordinate, inner radius
-			`A${ radiusInner } ${ radiusInner } 0 ${ largeArc } ${ sweepInner } ${ x1 } ${ y1 }`
+			`A${radiusInner} ${radiusInner} 0 ${largeArc} ${sweepInner} ${x1} ${y1}`,
 		];
-		
+
 		const fill = color || colors[i % colors.length];
-		const fillProp = fill ? {fill} : {};
+		const fillProp = fill ? { fill } : {};
 
 		paths.push(
 			<path
@@ -189,24 +181,24 @@ export default class PieChart extends React.Component {
 
 		return {
 			paths,
-			subtotal: subtotal + percent
+			subtotal: subtotal + percent,
 		};
-	}
+	};
 
-	computePercentages () {
-		const {series} = this.props;
+	computePercentages() {
+		const { series } = this.props;
 
 		// eliminate values of zero or less; protects against division by zero when computing percentages
-		const filtered = (series || []).filter(({value}) => value > 0);
-		const total = filtered.reduce((t, {value = 0}) => t + value, 0);
+		const filtered = (series || []).filter(({ value }) => value > 0);
+		const total = filtered.reduce((t, { value = 0 }) => t + value, 0);
 
 		return filtered.map(item => ({
 			...item,
-			percent: item.value / total
+			percent: item.value / total,
 		}));
 	}
 
-	render () {
+	render() {
 		const {
 			className,
 			title,
@@ -217,29 +209,48 @@ export default class PieChart extends React.Component {
 				legend,
 				legendLabel,
 				// legendValue,
-				legendPercent
-			} = {}
+				legendPercent,
+			} = {},
 		} = this.props;
 		const items = this.computePercentages();
 
 		return !(items || []).length ? null : (
 			<div className={cx(containerClass, className)}>
 				{title && (
-					<div className={cx('nti-pie-chart-title', titleClass)}>{title}</div>
+					<div className={cx('nti-pie-chart-title', titleClass)}>
+						{title}
+					</div>
 				)}
 				<div className={cx('nti-pie-chart', chart)}>
 					<svg viewBox={`0 0 ${size} ${size}`}>
 						{
-							items.reduce(this.makeSegment, {paths: [], subtotal: 0}).paths
+							items.reduce(this.makeSegment, {
+								paths: [],
+								subtotal: 0,
+							}).paths
 						}
 					</svg>
 				</div>
 				<ul className={cx('nti-pie-chart-legend', legend)}>
-					{items.map(({value, percent, label}) => (
+					{items.map(({ value, percent, label }) => (
 						<li key={`${value}-${label}`}>
-							<span className={cx('nti-pie-chart-legend-label', legendLabel)}>{label}</span>
+							<span
+								className={cx(
+									'nti-pie-chart-legend-label',
+									legendLabel
+								)}
+							>
+								{label}
+							</span>
 							{/* <span className={cx('nti-pie-chart-legend-value', legendValue)}>{value}</span> */}
-							<span className={cx('nti-pie-chart-legend-percent', legendPercent)}>({Math.round(percent * 100)}%)</span>
+							<span
+								className={cx(
+									'nti-pie-chart-legend-percent',
+									legendPercent
+								)}
+							>
+								({Math.round(percent * 100)}%)
+							</span>
 						</li>
 					))}
 				</ul>
