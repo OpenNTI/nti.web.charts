@@ -1,6 +1,7 @@
 import './NumericValue.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { LocalStorage } from '@nti/web-storage';
 
 const KEY_PREFIX = '_nti_numeric_value_';

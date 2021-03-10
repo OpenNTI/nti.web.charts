@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+
 import { VisibilityMonitor } from '@nti/lib-dom';
 
 const CANCELED = Symbol('canceled');
