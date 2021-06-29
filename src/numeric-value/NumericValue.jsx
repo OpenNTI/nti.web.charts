@@ -1,6 +1,7 @@
 import './NumericValue.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 
 import { LocalStorage } from '@nti/web-storage';
 
@@ -26,6 +27,12 @@ export default class NumericValue extends React.Component {
 		value: PropTypes.number,
 		error: PropTypes.node,
 		storageKey: PropTypes.string,
+		classes: PropTypes.shape({
+			container: PropTypes.string,
+			label: PropTypes.string,
+			value: PropTypes.string,
+			change: PropTypes.string,
+		}),
 	};
 
 	constructor(props) {
@@ -74,7 +81,7 @@ export default class NumericValue extends React.Component {
 	}
 
 	render() {
-		const { label, value, error } = this.props;
+		const { label, value, error, classes } = this.props;
 		const rawChange = this.state.change || 0;
 
 		let change = Math.abs(rawChange);
@@ -86,11 +93,15 @@ export default class NumericValue extends React.Component {
 		}
 
 		return (
-			<div className="numeric-value">
-				<div className="label">{label}</div>
-				<div className="value">{error || value}</div>
+			<div className={cx('numeric-value', classes?.container)}>
+				<div className={cx('label', classes?.label)}>{label}</div>
+				<div className={cx('value', classes?.value)}>
+					{error || value}
+				</div>
 				{this.state.change && (
-					<div className={changeClass}>{change}%</div>
+					<div className={cx(changeClass, classes?.change)}>
+						{change}%
+					</div>
 				)}
 			</div>
 		);
