@@ -28,6 +28,7 @@ export default class CircularProgress extends React.Component {
 
 		/**
 		 * Height of the graph
+		 *
 		 * @type {number} Default: 200
 		 */
 		height: PropTypes.number,

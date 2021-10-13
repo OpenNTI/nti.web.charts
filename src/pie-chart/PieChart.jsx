@@ -93,6 +93,7 @@ const minimumValue = minimumAngleDeg / 360;
 
 /**
  * Computes an x/y coordinate for the given angle and radius
+ *
  * @param {number} deg - The angle in degrees
  * @param {number} r  - The radius
  * @returns {Array} - An x/y coordinate for the point at the given angle and radius
